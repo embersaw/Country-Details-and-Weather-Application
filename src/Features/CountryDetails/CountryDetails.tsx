@@ -7,9 +7,10 @@ import {
   Typography,
 } from '@mui/material';
 
-import { DataGrid, GridRowsProp } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { columns } from './column';
+import { generateRows } from './row';
 
 type props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,25 +20,7 @@ type props = {
 const CountryDetails = (props: props) => {
   const { details } = props;
 
-  const rows: GridRowsProp = [
-    { id: 1, key: 'Official Name', value: details?.name?.official },
-    { id: 2, key: 'Total Area (square km) ', value: details?.area },
-    { id: 3, key: 'Total Population ', value: details?.population },
-    { id: 4, key: 'Capital ', value: details?.capital?.[0] },
-    { id: 5, key: 'Continent ', value: details?.continents?.[0] },
-    {
-      id: 6,
-      key: 'Native Language',
-      value: details?.languages[Object.keys(details?.languages)?.[0]],
-    },
-    {
-      id: 7,
-      key: 'Currency',
-      value: `${
-        details?.currencies[Object.keys(details?.currencies)[0]].name
-      } (${details?.currencies[Object.keys(details?.currencies)[0]].symbol} )`,
-    },
-  ];
+  const rows = generateRows(details);
 
   return (
     <Grid
